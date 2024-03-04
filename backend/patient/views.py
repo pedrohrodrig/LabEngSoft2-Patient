@@ -26,3 +26,13 @@ class PatientView(ModelViewSet):
         serializer = PatientSerializer(patient)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def list_all(self, request):
+        patient_list = Patient.objects.all()
+
+        if not patient_list:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        serializer = PatientSerializer(patient_list, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
