@@ -6,9 +6,11 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
+psycopg2-binary = "*"
+psycopg-binary = "*"
 
 [dev-packages]
-pre-commit = "2.17.x"
+pre-commit = "~=2.17"
 black = "~=22.6"
 isort = "~=5.10"
 
