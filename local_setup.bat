@@ -9,7 +9,6 @@ pause
 mkdir backend
 cd backend
 py -m pip install pipenv
-pipenv shell --python 3.10
-pipenv run pre-commit install
+pipenv run pre-commit install --python 3.10
 pipenv install django
 pipenv install djangorestframework
