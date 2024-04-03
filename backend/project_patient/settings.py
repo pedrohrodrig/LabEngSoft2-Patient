@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "cpf_field",
     "patient",
 ]
 
@@ -135,4 +136,4 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTTokenUserAuthentication",),
 }
 
-SIMPLE_JWT = {"SIGNING_KEY": "5ahp8kseKOVB_w"}
+SIMPLE_JWT = {"SIGNING_KEY": os.environ["SIGNING_KEY"]}
