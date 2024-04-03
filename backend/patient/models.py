@@ -23,7 +23,13 @@ class Patient(models.Model):
 
 
 class Appointment(models.Model):
+    class Status(models.IntegerChoices):
+        SCHEDULED = 1, "Agendada"
+        DONE = 2, "Finalizada"
+        CANCELLED = 3, "Cancelada"
+
     id_user_professional = models.PositiveIntegerField()
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="appointments")
     datetime = models.DateTimeField()
     is_online = models.BooleanField()
+    status = models.IntegerField(choices=Status.choices, default=Status.SCHEDULED, verbose_name="status")
