@@ -85,7 +85,7 @@ class AppointmentView(ModelViewSet):
         if not patient:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        serializer = AppointmentSerializer(request.data)
+        serializer = AppointmentSerializer({"patient": {**patient}, **request.data})
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
