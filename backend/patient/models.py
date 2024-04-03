@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from cpf_field.models import CPFField
 from django.db import models
 
@@ -22,14 +24,25 @@ class Patient(models.Model):
         db_table = "patient"
 
 
-class Appointment(models.Model):
-    class Status(models.IntegerChoices):
-        SCHEDULED = 1, "Agendada"
-        DONE = 2, "Finalizada"
-        CANCELLED = 3, "Cancelada"
+class AppointmentStatus(models.IntegerChoices):
+    SCHEDULED = 1, "Agendada"
+    DONE = 2, "Finalizada"
+    CANCELLED = 3, "Cancelada"
 
+
+class Appointment(models.Model):
     id_user_professional = models.PositiveIntegerField()
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="appointments")
     datetime = models.DateTimeField()
     is_online = models.BooleanField()
-    status = models.IntegerField(choices=Status.choices, default=Status.SCHEDULED, verbose_name="status")
+    cancelled = models.BooleanField(default=False)
+
+    @property
+    def status(self):
+        if self.cancelled:
+            return AppointmentStatus.CANCELLED
+
+        if datetime.now() > self.datetime:
+            return AppointmentStatus.DONE
+
+        return AppointmentStatus.SCHEDULED

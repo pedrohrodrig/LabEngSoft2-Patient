@@ -8,4 +8,5 @@ urlpatterns = [
     path("patient_from_logged_user/", PatientView.as_view(actions={"get": "get_from_logged_user"})),
     path("appointment/", AppointmentView.as_view(actions={"post": "create", "get": "list_all_from_user"})),
     path("appointment/<int:pk>/", AppointmentView.as_view(actions={"get": "retrieve"})),
+    path("appointment/<int:pk>/cancel", AppointmentView.as_view(actions={"patch": "cancel"})),
 ]

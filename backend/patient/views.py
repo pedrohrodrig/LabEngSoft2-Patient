@@ -93,3 +93,14 @@ class AppointmentView(ModelViewSet):
         appointment_serialized = AppointmentSerializer(appointment.data)
 
         return Response(appointment_serialized.data, status=status.HTTP_201_CREATED)
+
+    def cancel(self, request, pk):
+        user = request.user
+        if not user:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        appointment = Appointment.objects.get(id=pk)
+        appointment.cancelled = True
+        appointment.save()
+
+        return Response(status=status.HTTP_200_OK)
