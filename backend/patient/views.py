@@ -27,6 +27,19 @@ class PatientView(ModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def get_from_logged_user(self, request):
+        user = request.user
+        if not user:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        patient = Patient.objects.filter(id_user=user.id).first()
+        if not patient:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = PatientSerializer(patient)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def list_all(self, request):
         patient_list = Patient.objects.all()
 
