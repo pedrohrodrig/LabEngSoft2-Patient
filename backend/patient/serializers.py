@@ -11,7 +11,8 @@ class PatientSerializer(serializers.ModelSerializer):
 
 class AppointmentSerializer(serializers.ModelSerializer):
     patient = PatientSerializer(read_only=True)
+    status = serializers.Field()
 
     class Meta:
         model = Appointment
-        fields = ["id_user_professional", "datetime", "is_online"]
+        fields = ["id_user_professional", "datetime", "is_online", "status"]
