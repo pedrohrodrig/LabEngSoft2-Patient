@@ -1,14 +1,19 @@
+from cpf_field.models import CPFField
 from django.db import models
 
 
 class Patient(models.Model):
     id_user = models.PositiveIntegerField(unique=True)
-    full_name = models.CharField(max_length=255, null=False, blank=False)
-    date_of_birth = models.DateField(blank=False, null=False)
+    first_name = models.CharField(max_length=100, null=False, blank=False)
+    last_name = models.CharField(max_length=100, null=False, blank=False)
+    birth_date = models.DateField(blank=False, null=False)
     email = models.EmailField(max_length=255, unique=True, blank=False, null=False)
     phone_number = models.CharField(max_length=15, blank=True, default="")
-    document = models.CharField(max_length=15, unique=True, blank=True, null=True)
+    cpf = CPFField("cpf")
     address = models.CharField(max_length=255, null=False, blank=False)
+    gender = models.CharField(
+        max_length=1, blank=False, null=False, choices=(("F", "Female"), ("M", "Male"), ("O", "Others"))
+    )
 
     def __str__(self):
         return self.full_name
