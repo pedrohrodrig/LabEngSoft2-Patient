@@ -80,6 +80,7 @@ WSGI_APPLICATION = "project_patient.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# TODO: modularizar settings de dev e de prod
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
