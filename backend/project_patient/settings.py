@@ -82,12 +82,12 @@ WSGI_APPLICATION = "project_patient.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ["DB_ENGINE"],
-        "NAME": os.environ["DB_NAME"],
-        "USER": os.environ["DB_USER"],
-        "PASSWORD": os.environ["DB_PASSWORD"],
-        "HOST": os.environ["DB_HOST"],
-        "PORT": os.environ["DB_PORT"],
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME", "patient_service_db"),
+        "USER": os.getenv("DB_USER", "postgres"),
+        "PASSWORD": os.getenv("DB_PASSWORD", "postgres"),
+        "HOST": os.getenv("DB_HOST", "patient-service-db.cpssys6guvh3.sa-east-1.rds.amazonaws.com"),
+        "PORT": os.getenv("DB_PORT", "5432"),
     }
 }
 
@@ -140,4 +140,4 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTTokenUserAuthentication",),
 }
 
-SIMPLE_JWT = {"SIGNING_KEY": os.environ["SIGNING_KEY"]}
+SIMPLE_JWT = {"SIGNING_KEY": os.getenv("SIGNING_KEY")}
