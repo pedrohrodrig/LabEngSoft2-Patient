@@ -10,6 +10,7 @@ psycopg2-binary = "*"
 psycopg-binary = "*"
 django-cpf = "*"
 python-dotenv = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 pre-commit = "~=2.17"
