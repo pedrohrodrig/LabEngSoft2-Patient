@@ -9,6 +9,7 @@ djangorestframework = "*"
 psycopg2-binary = "*"
 psycopg-binary = "*"
 django-cpf = "*"
+python-dotenv = "*"
 
 [dev-packages]
 pre-commit = "~=2.17"
