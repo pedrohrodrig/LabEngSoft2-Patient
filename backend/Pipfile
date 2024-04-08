@@ -11,6 +11,7 @@ psycopg-binary = "*"
 django-cpf = "*"
 python-dotenv = "*"
 djangorestframework-simplejwt = "*"
+whitenoise = "*"
 
 [dev-packages]
 pre-commit = "~=2.17"
