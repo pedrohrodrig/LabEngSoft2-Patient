@@ -59,7 +59,7 @@ class AppointmentView(ModelViewSet):
 
         appointment = Appointment.objects.get(pk=pk)
         if not appointment:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
         serializer = AppointmentSerializer(appointment)
 
@@ -104,3 +104,16 @@ class AppointmentView(ModelViewSet):
         appointment.save()
 
         return Response(status=status.HTTP_200_OK)
+
+    def list_from_professional_id(self, request, id_user_professional):
+        user = request.user
+        if not user:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        appointment = Appointment.objects.filter(id_user_professional=id_user_professional)
+        if not appointment:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        serializer = AppointmentSerializer(appointment, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
