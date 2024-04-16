@@ -50,6 +50,17 @@ class PatientView(ModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def list_patients_from_professional(self, request, id_user_professional):
+        professional_patients = Patient.objects.filter(
+            appointments__id_user_professional=id_user_professional
+        ).distinct()
+        if not professional_patients:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        professional_patients_serialized = PatientSerializer(professional_patients, many=True)
+
+        return Response(professional_patients_serialized.data, status=status.HTTP_200_OK)
+
 
 class AppointmentView(ModelViewSet):
     def retrieve(self, request, pk):

@@ -6,6 +6,10 @@ urlpatterns = [
     path("patient/", PatientView.as_view(actions={"post": "create", "get": "list_all"})),
     path("patient/<int:pk>/", PatientView.as_view(actions={"get": "retrieve"})),
     path("patient_from_logged_user/", PatientView.as_view(actions={"get": "get_from_logged_user"})),
+    path(
+        "patient_from_professional_id/<int:id_user_professional>/",
+        PatientView.as_view(actions={"get": "list_patients_from_professional"}),
+    ),
     path("appointment/", AppointmentView.as_view(actions={"post": "create", "get": "list_all_from_user"})),
     path("appointment/<int:pk>/", AppointmentView.as_view(actions={"get": "retrieve"})),
     path("appointment/<int:pk>/cancel", AppointmentView.as_view(actions={"patch": "cancel"})),
