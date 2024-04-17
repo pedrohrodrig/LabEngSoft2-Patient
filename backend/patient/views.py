@@ -3,10 +3,15 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Appointment, Patient
+from .permissions import AllowPostOnlyPermission
 from .serializers import AppointmentSerializer, PatientSerializer
 
 
 class PatientView(ModelViewSet):
+    permission_classes = [
+        AllowPostOnlyPermission,
+    ]
+
     def create(self, request):
         serializer = PatientSerializer(data=request.data)
         if not serializer.is_valid():
