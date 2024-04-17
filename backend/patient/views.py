@@ -99,14 +99,13 @@ class AppointmentView(ModelViewSet):
 
         patient = Patient.objects.get(id_user=user.id)
         if not patient:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = AppointmentSerializer({"patient": {**patient}, **request.data})
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        data = request.data
+        data.pop("patient")
 
-        appointment = Appointment.objects.create(**serializer.validated_data)
-        appointment_serialized = AppointmentSerializer(appointment.data)
+        appointment = Appointment.objects.create(patient=patient, **data)
+        appointment_serialized = AppointmentSerializer(appointment)
 
         return Response(appointment_serialized.data, status=status.HTTP_201_CREATED)
 
